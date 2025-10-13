@@ -1,0 +1,43 @@
+name: 'Create .env from Environment Variables'
+description: 'Cria o arquivo .env com variáveis já disponíveis no ambiente.'
+
+inputs:
+  keyvault_name:
+    description: 'Key vault enviroment name'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Login to Azure
+      uses: azure/login@v2
+      with:
+        client-id: ${{ inputs.azure_client_id }}
+        tenant-id: ${{ inputs.azure_tenant_id }}
+        subscription-id: ${{ inputs.azure_subscription_id }}
+
+    - name: Get variables from Azure Key Vault
+      id: get-db-url
+      uses: azure/cli@v2
+      with:
+        inlineScript: |
+          set -e
+          DATABASE_HOST=$(az keyvault secret show --vault-name '${{ inputs.keyvault_name }}' --name 'DATABASE-HOST' --query value -o tsv)
+          DATABASE_USER=$(az keyvault secret show --vault-name '${{ inputs.keyvault_name }}' --name 'DATABASE-USER' --query value -o tsv)
+          DATABASE_PASSWORD=$(az keyvault secret show --vault-name '${{ inputs.keyvault_name }}' --name 'DATABASE-PASSWORD' --query value -o tsv)
+          DATABASE_NAME_ADMIN=$(az keyvault secret show --vault-name '${{ inputs.keyvault_name }}' --name 'DATABASE-NAME-ADMIN' --query value -o tsv)
+          echo "DATABASE_HOST=$DATABASE_HOST" >> $GITHUB_ENV
+          echo "DATABASE_USER=$DATABASE_USER" >> $GITHUB_ENV
+          echo "DATABASE_PASSWORD=$DATABASE_PASSWORD" >> $GITHUB_ENV
+          echo "DATABASE_NAME_ADMIN=$DATABASE_NAME_ADMIN" >> $GITHUB_ENV
+          echo "DATABASE_URL=postgresql://$DATABASE_USER:$DATABASE_PASSWORD@$DATABASE_HOST:5432/$DATABASE_NAME_ADMIN" >> $GITHUB_ENV
+          echo "keyvault_name=${{ inputs.keyvault_name }}" >> $GITHUB_ENV
+    - name: Create .env file
+      shell: bash 
+      run: |
+        echo "DATABASE_URL=${{ env.DATABASE_URL }}" >> .env
+        echo "KEY_VAULT_NAME=${{ env.KEY_VAULT_NAME }}" >> .env
+        echo "EMAIL_SENDER=tripee@tripeeapp.com" >> .env
+        echo "PORT=3000" >> .env
+        echo "APP_URL=http://localhost:3000" >> .env
+        

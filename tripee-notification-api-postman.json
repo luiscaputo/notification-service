@@ -1,0 +1,367 @@
+{
+  "info": {
+    "name": "Tripee Notification API",
+    "description": "API para gerenciamento de aplicações e envio de notificações",
+    "version": "0.0.1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "your-api-key-here",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "x-api-key",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Applications",
+      "description": "Endpoints para gerenciamento de aplicações",
+      "item": [
+        {
+          "name": "Create Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tripee Ride Api\",\n  \"versionStatus\": \"DEVELOPMENT\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/application",
+              "host": ["{{baseUrl}}"],
+              "path": ["application"]
+            },
+            "description": "Cria uma nova aplicação"
+          },
+          "response": []
+        },
+        {
+          "name": "List Applications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/application?page=1&perPage=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["application"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Número da página"
+                },
+                {
+                  "key": "perPage",
+                  "value": "10",
+                  "description": "Itens por página"
+                }
+              ]
+            },
+            "description": "Lista todas as aplicações com paginação"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Application by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/application/ab4cb836-b77d-4482-957e-465f7be5aefa",
+              "host": ["{{baseUrl}}"],
+              "path": ["application", "ab4cb836-b77d-4482-957e-465f7be5aefa"]
+            },
+            "description": "Busca uma aplicação específica por ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Application",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tripee Ride Api Updated\",\n  \"versionStatus\": \"PRODUCTION\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/application/ab4cb836-b77d-4482-957e-465f7be5aefa",
+              "host": ["{{baseUrl}}"],
+              "path": ["application", "ab4cb836-b77d-4482-957e-465f7be5aefa"]
+            },
+            "description": "Atualiza uma aplicação existente"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Application",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/application/ab4cb836-b77d-4482-957e-465f7be5aefa",
+              "host": ["{{baseUrl}}"],
+              "path": ["application", "ab4cb836-b77d-4482-957e-465f7be5aefa"]
+            },
+            "description": "Remove uma aplicação"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "description": "Endpoints para envio e gerenciamento de notificações",
+      "item": [
+        {
+          "name": "Create Email Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"EMAIL\",\n  \"receipts\": [\"luiscaputo.dev@gmail.com\"],\n  \"title\": \"Notification Title\",\n  \"body\": \"A vida é dura\",\n  \"scheduledAt\": \"2024-01-15T10:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/notification",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification"]
+            },
+            "description": "Cria e envia uma nova notificação por email. Requer API Key no header x-api-key"
+          },
+          "response": []
+        },
+        {
+          "name": "Create SMS Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"SMS\",\n  \"receipts\": [\"11952130888\", \"(21) 98765-4321\", \"31 98765 4321\"],\n  \"title\": \"SMS Notification\",\n  \"body\": \"Sua notificação SMS\",\n  \"scheduledAt\": \"2024-01-15T10:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/notification",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification"]
+            },
+            "description": "Cria e envia uma nova notificação por SMS. Receipts deve conter apenas números brasileiros válidos (DDD + número). O código do país (+55) será adicionado automaticamente. Aceita formatação: (11) 95213-0888, 11 95213 0888, 11.95213.0888. Requer API Key no header x-api-key"
+          },
+          "response": []
+        },
+        {
+          "name": "List Notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notification?page=1&perPage=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Número da página"
+                },
+                {
+                  "key": "perPage",
+                  "value": "10",
+                  "description": "Itens por página"
+                }
+              ]
+            },
+            "description": "Lista todas as notificações com paginação"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Notification by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notification/0c1d930d-f2f1-4b41-91cd-edb39ff608a7",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification", "0c1d930d-f2f1-4b41-91cd-edb39ff608a7"]
+            },
+            "description": "Busca uma notificação específica por ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Notification",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Notification Title\",\n  \"body\": \"Updated notification body\",\n  \"scheduledAt\": \"2024-01-16T10:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/notification/0c1d930d-f2f1-4b41-91cd-edb39ff608a7",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification", "0c1d930d-f2f1-4b41-91cd-edb39ff608a7"]
+            },
+            "description": "Atualiza uma notificação existente"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Notification",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notification/0c1d930d-f2f1-4b41-91cd-edb39ff608a7",
+              "host": ["{{baseUrl}}"],
+              "path": ["notification", "0c1d930d-f2f1-4b41-91cd-edb39ff608a7"]
+            },
+            "description": "Remove uma notificação"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Logs",
+      "description": "Endpoints para visualização de logs de notificações",
+      "item": [
+        {
+          "name": "Get All Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/logs",
+              "host": ["{{baseUrl}}"],
+              "path": ["logs"]
+            },
+            "description": "Lista todos os logs de notificações"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter Logs by Application",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/logs/filter-by-application?applicationId=ab4cb836-b77d-4482-957e-465f7be5aefa&timestamp=2024-01-15T10:00:00Z",
+              "host": ["{{baseUrl}}"],
+              "path": ["logs", "filter-by-application"],
+              "query": [
+                {
+                  "key": "applicationId",
+                  "value": "ab4cb836-b77d-4482-957e-465f7be5aefa",
+                  "description": "ID da aplicação"
+                },
+                {
+                  "key": "timestamp",
+                  "value": "2024-01-15T10:00:00Z",
+                  "description": "Timestamp para filtrar (opcional)"
+                }
+              ]
+            },
+            "description": "Filtra logs por aplicação e timestamp opcional"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter Logs by Notification",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/logs/filter-by-notification?notificationId=0c1d930d-f2f1-4b41-91cd-edb39ff608a7&timestamp=2024-01-15T10:00:00Z",
+              "host": ["{{baseUrl}}"],
+              "path": ["logs", "filter-by-notification"],
+              "query": [
+                {
+                  "key": "notificationId",
+                  "value": "0c1d930d-f2f1-4b41-91cd-edb39ff608a7",
+                  "description": "ID da notificação"
+                },
+                {
+                  "key": "timestamp",
+                  "value": "2024-01-15T10:00:00Z",
+                  "description": "Timestamp para filtrar (opcional)"
+                }
+              ]
+            },
+            "description": "Filtra logs por notificação e timestamp opcional"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+} 
