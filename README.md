@@ -1,15 +1,12 @@
-# 📢 Tripee Notification Service API
+# 📢 Notification-service
 
 Serviço responsável por enviar notificações via **e-mail** (Azure Communication Services) e **push** (Firebase), com arquitetura baseada em **NestJS**, **Prisma ORM** e **PostgreSQL**.
-
-Este repositório faz parte do ecossistema de serviços da Tripee e segue os padrões de qualidade adotados pela equipa de engenharia.
-
-📄 **Documentação oficial:**  
-[🔗 Wiki – Getting Started](https://tripee.atlassian.net/wiki/spaces/Tripee/pages/132775938/3.4.1+-+Getting+Started)
 
 ---
 
 ## 🚀 Get Started
+- npm install
+- npm run start:dev
 
 ### ✅ Pré-requisitos
 
@@ -23,7 +20,7 @@ Este repositório faz parte do ecossistema de serviços da Tripee e segue os pad
 ### 📥 Clonar o projeto
 
 ```bash
-git clone https://github.com/tripee/tripee-notification-service-api.git
-cd tripee-notification-service-api
+clone o repositorio
+cd notification-service
 # notification-service
 # notification-service
