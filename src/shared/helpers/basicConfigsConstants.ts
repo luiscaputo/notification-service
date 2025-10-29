@@ -1,11 +1,11 @@
-export const appSystemTag = 'Tripee Notiifications Service';
-export const appTitle = 'Tripee Notiifications Service';
+export const appSystemTag = 'Notification-service Notiifications Service';
+export const appTitle = 'Notification-service Notiifications Service';
 export const appVersion = '0.0.1';
 export const appPort = () => process.env.PORT || 3000;
 export const appFavicon =
-  'https://www.tripee.to/assets/logo_escrita-C57-kNgu.png';
+  'https://www.Notification-service.to/assets/logo_escrita-C57-kNgu.png';
 export const appLogo =
-  'https://www.tripee.to/assets/logo_escrita-C57-kNgu.png'; // TODO: add correct favicon
+  'https://www.Notification-service.to/assets/logo_escrita-C57-kNgu.png'; // TODO: add correct favicon
 export const appDocPath = `/api/doc`;
 export const appDocTitle = `${appTitle}`;
 export const appDocDescription = `${appDocTitle} | Documentantion`;

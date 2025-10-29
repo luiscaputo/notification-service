@@ -4,21 +4,21 @@ services:
   app:
     build: .
     command: ./.docker/start.sh
-    container_name: tripee-notifications-service
+    container_name: notifications-service
     ports:
       - 3002:3000
     volumes:
       - .:/home/node/app
     depends_on:
-      - tripee-notifications-service-postgresql
+      - notifications-service-postgresql
     environment:
       - POSTGRES_HOST=localhost
       - POSTGRES_DATABASE=root
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
 
-  tripee-notifications-service-postgresql:
-    container_name: tripee-notifications-service-db
+  notifications-service-postgresql:
+    container_name: notifications-service-db
     image: postgres:9.4
     environment:
       - POSTGRES_HOST=localhost
@@ -28,7 +28,7 @@ services:
     ports:
       - "5432:5432" 
     volumes:
-      - postgres_data:/var/lib/tripee-notifications-service-postgresql/tripee-notifications-service
+      - postgres_data:/var/lib/notifications-service-postgresql/notifications-service
       - ./scripts:/docker-entrypoint-initdb.d
     command: ["postgres", "-c", "log_statement=all"]
 

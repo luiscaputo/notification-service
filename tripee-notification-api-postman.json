@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "Tripee Notification API",
+    "name": "Notification API",
     "description": "API para gerenciamento de aplicações e envio de notificações",
     "version": "0.0.1",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -44,7 +44,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Tripee Ride Api\",\n  \"versionStatus\": \"DEVELOPMENT\"\n}"
+              "raw": "{\n  \"name\": \"Notification Hub\",\n  \"versionStatus\": \"DEVELOPMENT\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/application",
@@ -107,7 +107,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Tripee Ride Api Updated\",\n  \"versionStatus\": \"PRODUCTION\"\n}"
+              "raw": "{\n  \"name\": \"Notification hub Updated\",\n  \"versionStatus\": \"PRODUCTION\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/application/ab4cb836-b77d-4482-957e-465f7be5aefa",

@@ -15,7 +15,7 @@ export class CreateApplicationDto {
   @ApiProperty({
     required: true,
     description: 'Application name',
-    example: 'Tripee Ride Api',
+    example: 'Notification-service Ride Api',
   })
   name: string;
 
